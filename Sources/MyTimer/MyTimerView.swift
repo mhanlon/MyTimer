@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
+@available(iOS 14.0, *)
 public struct MyTimerView: View {
     private var timeFormatter: DateComponentsFormatter {
         let formatter = DateComponentsFormatter()
@@ -16,8 +16,13 @@ public struct MyTimerView: View {
         return formatter
     }
     
-    @State var isRunning = false
+    @State var isRunning: Bool
     @StateObject var timer = TimerViewModel()
+    
+    public init(isRunning: Bool = false) {
+        self.isRunning = isRunning
+    }
+
     
     public var body: some View {
         VStack {
@@ -51,7 +56,7 @@ public struct MyTimerView: View {
     }
 }
 
-@available(iOS 13.0, *)
+@available(iOS 14.0, *)
 public struct MyTimerView_Previews: PreviewProvider {
     public static var previews: some View {
         MyTimerView()
