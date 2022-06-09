@@ -1,6 +1,7 @@
 import SwiftUI
 
-class TimerViewModel: ObservableObject {
+@available(iOS 13.0, *)
+public class TimerViewModel: ObservableObject {
     @Published private var timerModel: TimerModel = TimerModel(seconds: 0)
     private var timer: Timer?
     

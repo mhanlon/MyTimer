@@ -7,14 +7,53 @@
 
 import SwiftUI
 
-struct SwiftUIView: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+@available(iOS 13.0, *)
+public struct MyTimerView: View {
+    private var timeFormatter: DateComponentsFormatter {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.zeroFormattingBehavior = .pad
+        return formatter
+    }
+    
+    @State var isRunning = false
+    @StateObject var timer = TimerViewModel()
+    
+    public var body: some View {
+        VStack {
+            Image(systemName: "timer.square")
+                .imageScale(.large)
+                .foregroundColor(.accentColor)
+                .font(.system(size: 72))
+            Text(self.timeFormatter.string(from: TimeInterval(self.timer.currentValue)) ?? "0")
+                .font(.system(size: 48))
+            HStack {
+                Button(isRunning ? "Stop" : "Start") {
+                    // start the timer
+                    if isRunning {
+                        self.timer.stop()
+                    } else {
+                        self.timer.start()
+                    }
+                    isRunning.toggle()
+                }
+                .padding(10.0)
+                .background(Capsule()
+                    .foregroundColor(isRunning ? .red : .green))
+                Button("Reset") {
+                    //time = "00:00"
+                    self.timer.reset()
+                }
+            }
+            .padding()
+        }
+        .padding()
     }
 }
 
-struct SwiftUIView_Previews: PreviewProvider {
-    static var previews: some View {
-        SwiftUIView()
+@available(iOS 13.0, *)
+public struct MyTimerView_Previews: PreviewProvider {
+    public static var previews: some View {
+        MyTimerView()
     }
 }

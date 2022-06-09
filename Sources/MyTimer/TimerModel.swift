@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct TimerModel {
+public struct TimerModel {
     var seconds: Int
     
     var increment: TimerModel {
